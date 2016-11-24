@@ -1,0 +1,38 @@
+﻿@using BlogSystem.ViewModels
+
+@model PostViewModel
+
+<h2>Post Details</h2>
+
+<div class="jumbotron">
+    <h2 class="text-center">@Model.Name</h2>
+    <p>@Model.Content</p>
+    <p style="font-size: small">Created at: @Model.DateCreated</p>
+    <p style="font-size: small">Created by: @Model.userName</p>
+    <div>
+        @Html.ActionLink(" ", "Update", "Post", new { id = Model.Id }, new { @class = "glyphicon glyphicon-edit" })
+        @Html.ActionLink(" ", "DeleteConfirmation", "Post", new { id = Model.Id }, new { @class = "glyphicon glyphicon-remove" })
+    </div>
+</div>
+
+<h2>Comments</h2>
+
+<div>
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @comment.userName
+                <em>@comment.PostedDate</em>
+            </div>
+
+            <p class="panel-body">@comment.Message</p><br />
+        </div>
+    }
+</div>
+    
+<div>
+    @Html.ActionLink(" ", "Create", "Comment", new { id = Model.Id }, new { @class = "glyphicon glyphicon-comment" })
+</div>
+
+

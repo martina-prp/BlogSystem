@@ -1,0 +1,17 @@
+﻿@using BlogSystem.ViewModels
+
+@model IEnumerable<PostViewModel>
+
+@foreach (var post in Model)
+{
+    <div class="jumbotron">
+        <h2 class="text-center">@post.Name</h2>
+        <p>@post.Content</p>
+        <p style="font-size: small">Created at: @post.DateCreated</p>
+        <p style="font-size: small">Created by: @post.userName</p>
+        <div>
+            @Html.ActionLink("Post Details", "Details", "Post", new { id = post.Id }, null )
+        </div>
+
+    </div>
+}

@@ -1,0 +1,21 @@
+﻿@using BlogSystem.ViewModels
+@model PostViewModel
+
+<h2>Delete</h2>
+
+<h2>Are you sure you want to delete this post?</h2>
+
+<div class="jumbotron">
+    <h1>@Model.Name</h1>
+    <p>@Model.Content</p>
+    <p style="font-size: small">Created at: @Model.DateCreated</p>
+    <p style="font-size: small">Created by: @Model.userName</p>
+
+    <div>
+        @Html.ActionLink("Delete Post", "Delete", "Post", new { id = Model.Id }, null)
+    </div>
+</div>
+
+
+
+
