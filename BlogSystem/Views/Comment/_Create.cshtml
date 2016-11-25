@@ -1,0 +1,12 @@
+﻿@using BlogSystem.ViewModels
+
+@model CommentViewModels
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @Model.userName
+        <em>@Model.PostedDate</em>
+    </div>
+
+    <p class="panel-body">@Model.Message</p><br />
+</div>

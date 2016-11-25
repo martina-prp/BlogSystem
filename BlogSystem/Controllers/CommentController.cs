@@ -16,12 +16,12 @@ namespace BlogSystem.Controllers
             return View();
         }*/
 
-        [HttpGet]
+        /*[HttpGet]
         [Authorize]
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
-        }
+            return RedirectToAction(actionName: "_Create", controllerName: "Comment", routeValues: new { id });
+        }*/
 
         [HttpPost]
         [Authorize]
@@ -41,11 +41,29 @@ namespace BlogSystem.Controllers
                 User = currentUser,
                 Post = post
             };
+            commentViewModel.userName = currentUser.UserName;
+            commentViewModel.PostedDate = comment.PostedDate;
 
             this.Context.Comments.Add(comment);
             this.Context.SaveChanges();
 
-            return RedirectToAction("Details", "Post", new { id = id });
+            /*ICollection<CommentViewModels> postComments = this.Context.Comments.Where(c => c.Post.Id == id).Select
+                (c => new CommentViewModels()
+                {
+                    Message = c.Message,
+                    PostedDate = c.PostedDate,
+                    userName = c.User.UserName,
+                    PostId = c.Post.Id
+                }).ToList();*/
+
+            return PartialView("_Create", commentViewModel);
+            //return RedirectToAction("Details", "Post", new { id = id });
         }
+
+        /*public PartialViewResult _Create(int id)
+        {
+            CommentViewModels commentVM = new CommentViewModels() { PostId = id };
+            return PartialView("_Create", commentVM);
+        }*/
     }
 }

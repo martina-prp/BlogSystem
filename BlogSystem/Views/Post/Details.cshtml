@@ -16,7 +16,6 @@
 </div>
 
 <h2>Comments</h2>
-
 <div>
     @foreach (var comment in Model.Comments)
     {
@@ -30,9 +29,41 @@
         </div>
     }
 </div>
-    
-<div>
-    @Html.ActionLink(" ", "Create", "Comment", new { id = Model.Id }, new { @class = "glyphicon glyphicon-comment" })
-</div>
 
+<div id="ajax-comment-target"></div>
 
+<h2>Add Comment</h2>
+
+@*@using (Ajax.BeginForm("Create", "Comment", FormMethod.Post))*@
+@using (Ajax.BeginForm(
+            actionName: "Create",
+            controllerName: "Comment",
+            routeValues: new { id = Model.Id },
+            ajaxOptions: new AjaxOptions
+            {
+                UpdateTargetId = "ajax-comment-target",
+                InsertionMode = InsertionMode.Replace,
+                OnComplete = "OnSuccess"
+
+            },
+            htmlAttributes: new
+            {
+                @class = "post-comment-form"
+            }))
+{
+    <div>
+        @Html.Label("Message")
+        @Html.TextArea("Message", new { @class = "form-control" })
+    </div>
+    <div>
+        <input type="submit" value="Add" />
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    function OnSuccess() {
+        $(".post-comment-form").val("");
+    }
+</script>
